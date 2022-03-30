@@ -17,5 +17,4 @@ df_gen.cache()
 df_generation_join = df_gen.join(df_poke, 'generation', how='inner')
 
 ## Salvando o dataframe em uma tabela
-df_generation_join.createOrReplaceTempView("tmpTableView") 
-spark.sql("CREATE TABLE IF NOT EXISTS work_dataeng.pokemons_oldschool_weliston as select * from tmpTableView");
+df_generation_join.write.mode('overwrite').format('orc').saveAsTable('work_dataeng.pokemons_oldschool_weliston');
